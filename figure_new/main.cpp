@@ -1,33 +1,6 @@
 #include<iostream>
 #include<string>
 
-/*class Gun
-{
-public:
-	  virtual void Shoot()
-	{
-		std::cout << "Babah!" << std::endl;
-	}
-};
-
-class SubmachinGun:public Gun
-{
-public:
-	void Shoot()override
-	{
-		std::cout << "Tra-ta-ta!!!";
-	}
-};
-
-class Player
-{
-public:
-	void Shoot(Gun* gun)
-	{
-		gun->Shoot();
-	}
-
-};*/
 
 class figure
 {
