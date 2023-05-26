@@ -5,22 +5,54 @@
 class figure
 {
 public:
-	void Tell()
-	{
-		std::cout << "Стороны: " << std::endl << a << " " << b << " " << c << std::endl
-			<< "Углы: " << std::endl << A << " " << B << " " << C << std::endl;
-	}
-	void Tell2()
-	{
-		std::cout << "Стороны: " << std::endl << a << " " << b << " " << c << " " << d << std::endl
-			<< "Углы: " << std::endl << A << " " << B << " " << C << " " << D << std::endl;
-	}
-
 	figure()
 	{
 	}
+	virtual void Tell()
+	{
+		
+	}
 
-	figure(int a, int b, int c, int A, int B, int C)
+};
+
+// треугольник
+class triangle :public figure
+{
+public:
+	triangle()
+	{
+	}
+	triangle(int a, int A) // равносторонний
+	{
+		this->a = a;
+		this->b = a;
+		this->c = a;
+		this->A = A;
+		this->B = A;
+		this->C = A;
+		this-> tri = "Равносторонний треугольник:";
+	}
+	triangle(int a, int c, int A) //равнобедренный
+	{
+		this->a = a;
+		this->b = a;
+		this->c = c;
+		this->A = A;
+		this->B = (180 - A)/2;
+		this->C = B;
+		this->tri = "Равнобедренный треугольник:";
+	}
+	triangle(int a, int b, int c, int A, int B)  // прямоугольный
+	{
+		this->a = a;
+		this->b = b;
+		this->c = c;
+		this->A = A;
+		this->B = B;
+		this->C = 90;
+		this->tri = "Прямоугольный треугольник:";
+	}
+	triangle(int a, int b, int c, int A, int B, int C)  // треугольник
 	{
 		this->a = a;
 		this->b = b;
@@ -28,19 +60,16 @@ public:
 		this->A = A;
 		this->B = B;
 		this->C = C;
+		this->tri = "Tреугольник:";
 	}
-	figure(int a, int b, int c, int d, int A, int B, int C, int D)
-	{
-		this->a = a;
-		this->b = b;
-		this->c = c;
-		this->d = d;
-		this->A = A;
-		this->B = B;
-		this->C = C;
-		this->D = D;
 
+	 void Tell()override
+	{
+		std::cout << tri << std::endl;
+	    std::cout << stor << "a = " << a << "  " << "b = " << b << "  " << "c = " << c << std::endl;
+		std::cout << ugl << "A = " << A << "  " << "B = " << B << "  " << "C = " << C <<  std::endl << std::endl;
 	}
+
 private:
 	int a = 0;
 	int b = 0;
@@ -50,37 +79,38 @@ private:
 	int B = 0;
 	int C = 0;
 	int D = 0;
+	std::string tri;
+	std::string stor = "Стороны:\t";
+	std::string ugl = "Углы:\t\t";
 };
 
 // равносторонний
-class equilateral :public figure
+class equilateral :public triangle
 {
 public:
-
-	equilateral(int a, int b, int c, int A, int B, int C) :figure(a, b, c, A, B, C)
+	
+	equilateral(int a, int b):triangle(a,b)
 	{
 	}
-
-
 };
+
 // прямоугольный
-class rectangular :public equilateral
+class rectangular :public triangle
 {
 public:
-
-	rectangular(int a, int b, int c, int A, int B, int C) :equilateral(a, b, c, A, B, C)
+	
+	rectangular(int a, int b, int c, int A, int B):triangle(a,b,c,A,B)
 	{
-
 	}
 
 };
 
 // равнобедренный
-class isosceles :public rectangular
+class isosceles :public triangle
 {
 public:
 
-	isosceles(int a, int b, int c, int A, int B, int C) :rectangular(a, b, c, A, B, C)
+	isosceles(int a, int c, int A) :triangle(a, c, A)
 	{
 
 	}
@@ -91,11 +121,83 @@ public:
 class quadrilateral :public figure
 {
 public:
-	quadrilateral(int a, int b, int c, int d, int A, int B, int C, int D) :figure(a, b, c, d, A, B, C, D)
+	quadrilateral()
+	{
+	}
+	quadrilateral(int a)// квадрат
 	{
 
+
+		this->tri = "Квадрат:";
+	}
+	quadrilateral(int a, int b)// прямоугольник
+	{
+		this->a = a;
+		this->b = b;
+		this->c = a;
+		this->d = b;
+		this->A = 90;
+		this->B = 90;
+		this->C = 90;
+		this->D = 90;
+		this->tri = "Прямоугольник:";
+	}
+	quadrilateral(int a, int A, int B)// ромб
+	{
+		this->a = a;
+		this->b = a;
+		this->c = a;
+		this->d = a;
+		this->A = A;
+		this->B = B;
+		this->C = A;
+		this->D = B;
+		this->tri = "Ромб:";
+	}
+	quadrilateral(int a, int b, int A, int B)// паралеллограмм
+	{
+		this->a = a;
+		this->b = b;
+		this->c = a;
+		this->d = b;
+		this->A = A;
+		this->B = B;
+		this->C = A;
+		this->D = B;
+		this->tri = "Паралеллограмм:";
+	}
+	quadrilateral(int a, int b, int c, int d, int A, int B, int C, int D)
+	{
+		this->a = a;
+		this->b = b;
+		this->c = c;
+		this->d = d;
+		this->A = A;
+		this->B = B;
+		this->C = C;
+		this->D = D;
+		this->tri = "Четырехугольник:";
 	}
 
+	void Tell()override
+	{
+		std::cout << tri << std::endl;
+		std::cout << stor << "a = " << a << "  " << "b = " << b << "  " << "c = " << c << " " << "d = " << d << std::endl;
+		std::cout << ugl << "A = " << A << "  " << "B = " << B << "  " << "C = " << C << " " << "D = " << D << std::endl << std::endl;
+	}
+
+private:
+	int a = 0;
+	int b = 0;
+	int c = 0;
+	int d = 0;
+	int A = 0;
+	int B = 0;
+	int C = 0;
+	int D = 0;
+	std::string tri;
+	std::string stor = "Стороны:\t";
+	std::string ugl = "Углы:\t\t";
 };
 
 // прямоугольник
@@ -103,42 +205,39 @@ class rectangle :public quadrilateral
 {
 public:
 
-	rectangle(int a, int b, int c, int d, int A, int B, int C, int D) :quadrilateral(a, b, c, d, A, B, C, D)
+	rectangle(int a, int b) :quadrilateral(a, b)
 	{
 
 	}
 };
 
 // квадрат
-class square :public rectangle
+class square :public quadrilateral
 {
 public:
-	square(int a, int b, int c, int d, int A, int B, int C, int D) :rectangle(a, b, c, d, A, B, C, D)
+	square(int a) :quadrilateral(a)
 	{
-
 	}
 };
 
 // паралеллограмм
-class parallellogram :public square
+class parallellogram :public quadrilateral
 {
 public:
-	parallellogram(int a, int b, int c, int d, int A, int B, int C, int D) :square(a, b, c, d, A, B, C, D)
+	parallellogram(int a, int b,int A, int B) :quadrilateral(a, b, A, B)
 	{
-
 	}
 };
-
 
 // ромб
-class rhomb :public parallellogram
+class rhomb :public quadrilateral
 {
 public:
-	rhomb(int a, int b, int c, int d, int A, int B, int C, int D) :parallellogram(a, b, c, d, A, B, C, D)
+	rhomb(int a,int A, int B) :quadrilateral(a, A, B)
 	{
-
 	}
 };
+
 int main() {
 
 	setlocale(LC_ALL, "Russian");
@@ -149,39 +248,47 @@ int main() {
 
 	boy.Shoot(&Gun);*/
 
-	figure q(1, 2, 1, 2, 1, 2);
-	std::cout << "Треугольник" << std::endl;
+
+	// треугольник
+	triangle q(2, 2, 2, 30, 30, 30);
 	q.Tell();
 
-	equilateral p(10, 10, 10, 60, 60, 60);
-	std::cout << "Равносторонний треугольник" << std::endl;
-	p.Tell();
 
-	rectangular m(55, 66, 77, 88, 99, 11);
-	std::cout << "Прямоугольный треугольник" << std::endl;
-	m.Tell();
+	// равносторонний
+	equilateral a(4,5);
+	a.Tell();
+	
+	// прямоугольный
+	rectangular b(3, 4, 5, 60, 80);
+	b.Tell();
 
-	isosceles e(30, 30, 20, 45, 60, 60);
-	std::cout << "Равнобедренный треугольник" << std::endl;
+
+	// равнобедренный
+	isosceles c(22, 10, 45);
+	c.Tell();
+
+	// четырехугольник
+	quadrilateral d(44, 44, 44, 44, 80, 100, 80, 100);
+	d.Tell();
+
+	// прямоугольник
+	rectangle e(500, 500);
 	e.Tell();
 
-	quadrilateral g(4, 4, 4, 4, 45, 45, 45, 45);
-	std::cout << std::endl << "Четырехугольник" << std::endl;
-	g.Tell2();
+	// квадрат
+	square m(1000);
+	m.Tell();
 
-	rectangle d(55, 40, 55, 40, 90, 90, 90, 90);
-	std::cout << "Прямоугольник" << std::endl;
-	d.Tell2();
+	// паралеллограмм
+	parallellogram n(10, 10, 70, 110);
+	n.Tell();
 
-	square a(8, 8, 8, 8, 90, 90, 90, 90);
-	std::cout << "Квадрат" << std::endl;
-	a.Tell2();
+	// ромб
+	rhomb v(35, 10, 170);
+	v.Tell();
 
-	parallellogram s(234, 234, 230, 230, 45, 50, 45, 50);
-	std::cout << "Параллеллограмм" << std::endl;
-	s.Tell2();
 
-	rhomb l(5, 5, 5, 5, 40, 50, 40, 50);
-	std::cout << "Ромб" << std::endl;
-	l.Tell2();
+
+
+
 }
